@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Titolacions">
+
+   <LinearLayout
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:orientation="horizontal"
+       android:gravity="center_horizontal"
+
+       >
+       <TextView
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="CICLES A FLORIDA"
+           android:textSize="30dp"/>
+
+
+
+
+   </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="80dp">
+        <Button
+            android:id="@+id/btn_Empresa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="EMPRESA"/>
+        <Button
+            android:id="@+id/btn_Esports"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ESPORTS"
+
+            />
+        <Button
+            android:id="@+id/btn_Informartica"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="INFORMATICA"
+            />
+
+    </LinearLayout>
+
+</FrameLayout>
