@@ -20,10 +20,11 @@ public class Titolacions extends Fragment implements View.OnClickListener{
     private String mParam1;
     private String mParam2;
 
-    private Button empresa;
-    private Button informacio;
+    private Button btn_empresa;
+    private Button btn_informacio;
+    private Button btn_esports;
 
-    private OnFragmentInteractionListener mListener;
+    private ComunicaFragmentAmbActivity mListener;
 
     public Titolacions() {
         // Required empty public constructor
@@ -51,22 +52,29 @@ public class Titolacions extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_titolacions, container, false);
+        View v = inflater.inflate(R.layout.fragment_titolacions, container, false);
+
+        btn_empresa = (Button) v.findViewById(R.id.btn_Empresa);
+        btn_esports = (Button) v.findViewById(R.id.btn_Esports);
+        btn_informacio = (Button) v.findViewById(R.id.btn_Informartica);
+
+        btn_informacio.setOnClickListener(this);
+        btn_esports.setOnClickListener(this);
+        btn_informacio.setOnClickListener(this);
+
+        return v;
+
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
+        if (context instanceof ComunicaFragmentAmbActivity) {
+            mListener = (ComunicaFragmentAmbActivity) context;
         } else {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
@@ -82,11 +90,28 @@ public class Titolacions extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View v) {
 
+        if (v.getId()==R.id.btn_Empresa){
+
+            mListener.busca_info_empresa();
+        }else{
+            if (v.getId()==R.id.btn_Esports){
+
+                mListener.busca_info_esports();
+
+            }else{
+
+                mListener.busca_info_informatica();
+            }
+
+        }
+
     }
 
 
-    public interface OnFragmentInteractionListener {
+    public interface ComunicaFragmentAmbActivity {
         // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void busca_info_empresa();
+        void busca_info_esports();
+        void busca_info_informatica();
     }
 }
