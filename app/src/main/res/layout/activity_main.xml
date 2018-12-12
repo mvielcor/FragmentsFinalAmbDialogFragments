@@ -9,7 +9,7 @@
 
     <fragment
         android:id="@+id/fragmentCicle"
-        android:name="prueba.prueba.crgomez.activitatdinamicfragment.TipusCicle"
+        android:name="prueba.prueba.crgomez.activitatdinamicfragment.Titolacions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1" />

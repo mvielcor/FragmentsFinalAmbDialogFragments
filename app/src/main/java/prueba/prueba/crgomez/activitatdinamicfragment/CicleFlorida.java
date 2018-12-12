@@ -1,8 +1,10 @@
 package prueba.prueba.crgomez.activitatdinamicfragment;
 
-import java.util.ArrayList;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class CicleFlorida {
+
+public class CicleFlorida implements Parcelable {
     private String familiaProfessional;
     private String tipus;
     private String titol;
@@ -50,4 +52,47 @@ public class CicleFlorida {
     }
 
 
+
+    protected CicleFlorida(Parcel in) {
+        familiaProfessional = in.readString();
+        tipus = in.readString();
+        titol = in.readString();
+        Descripcio = in.readString();
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(familiaProfessional);
+        dest.writeString(tipus);
+        dest.writeString(titol);
+        dest.writeString(Descripcio);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<CicleFlorida> CREATOR = new Parcelable.Creator<CicleFlorida>() {
+        @Override
+        public CicleFlorida createFromParcel(Parcel in) {
+            return new CicleFlorida(in);
+        }
+
+        @Override
+        public CicleFlorida[] newArray(int size) {
+            return new CicleFlorida[size];
+        }
+    };
+
+    @Override
+    public String toString() {
+        return "CicleFlorida{" +
+                "familiaProfessional='" + familiaProfessional + '\'' +
+                ", tipus='" + tipus + '\'' +
+                ", titol='" + titol + '\'' +
+                ", Descripcio='" + Descripcio + '\'' +
+                '}';
+    }
 }

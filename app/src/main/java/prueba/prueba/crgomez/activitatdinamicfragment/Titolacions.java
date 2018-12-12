@@ -62,7 +62,7 @@ public class Titolacions extends Fragment implements View.OnClickListener{
 
         btn_informacio.setOnClickListener(this);
         btn_esports.setOnClickListener(this);
-        btn_informacio.setOnClickListener(this);
+        btn_empresa.setOnClickListener(this);
 
         return v;
 
@@ -93,7 +93,7 @@ public class Titolacions extends Fragment implements View.OnClickListener{
         if (v.getId()==R.id.btn_Empresa){
 
             mListener.busca_info_empresa();
-        }else{
+        }
             if (v.getId()==R.id.btn_Esports){
 
                 mListener.busca_info_esports();
@@ -103,7 +103,7 @@ public class Titolacions extends Fragment implements View.OnClickListener{
                 mListener.busca_info_informatica();
             }
 
-        }
+
 
     }
 
