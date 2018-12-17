@@ -1,2 +1,2 @@
 # ActivitatDinamicFragment
-ejercici Oscar i Cristobal
+ejercici Oscar 50% i Cristobal 50%
