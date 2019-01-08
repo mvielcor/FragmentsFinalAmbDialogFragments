@@ -98,7 +98,7 @@ public class Titolacions extends Fragment implements View.OnClickListener{
 
                 mListener.busca_info_esports();
 
-            }else{
+            }if (v.getId()==R.id.btn_Informartica){
 
                 mListener.busca_info_informatica();
             }

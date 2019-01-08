@@ -4,6 +4,8 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,9 +30,13 @@ public class Llistat extends Fragment {
 
 
     // TODO: Rename and change types of parameters
+
+    // mPARAM1 metemos el ARRAYLIST
     private ArrayList<CicleFlorida> mParam1;
     private TextView muestraCiclos;
-
+    RecyclerView rv;
+    RecyclerView.LayoutManager rvLM;
+    AdaptadoRecycler adapRe;
     private OnFragmentInteractionListener mListener;
 
     public Llistat() {
@@ -63,15 +69,23 @@ public class Llistat extends Fragment {
 
         }
     }
-
+// UTILIZAMOS EL RECLYCLER CON MPARAM1 QUE ES DONDE TENEMOS ALAMCENADO EL ARRAYLIST!
+    //CREAMOS LA CLASE ADAPTADORECYCLER POR UNA PARTE Y DESPUÉS EL XML UN_ELEMENT_LLISTA, VER LA CLASE ADAPTADOR.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_llistat, container, false);
-        Log.d("entro","entroLlistat");
-        muestraCiclos = (TextView) v.findViewById(R.id.voreLlistat);
-        mostrar();
+        Log.d("entro","entroLlistat " + mParam1.get(0));
+        rv = (RecyclerView)v.findViewById (R.id.recycler1);
+// getAPLICATTIONCONTEXT no sirve porque TENEMOS QUE UTILIZAR V.GETCONTEXT() QUE ES LA PANTALLA QUE ESTAMOS UTILIZANDO EN EL MOMENTO
+        rvLM = new LinearLayoutManager(v.getContext(),1,false);
+        rv.setLayoutManager(rvLM);
+        adapRe = new AdaptadoRecycler(mParam1);
+
+        rv.setAdapter(adapRe);
+       // muestraCiclos = (TextView) v.findViewById(R.id.voreLlistat);
+       // mostrar();
         return v;
     }
 
@@ -98,7 +112,7 @@ public class Llistat extends Fragment {
         super.onDetach();
         mListener = null;
     }
-
+// NOS CARGAMOS ESTE MÉTODO PARA INCORPORAR EL RECYCLERVIEW
     public void mostrar(){
         Log.d("entro", "entroMostrar");
         for (CicleFlorida aux: mParam1){

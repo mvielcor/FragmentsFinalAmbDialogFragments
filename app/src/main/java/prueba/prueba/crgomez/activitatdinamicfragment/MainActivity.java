@@ -5,12 +5,15 @@ package prueba.prueba.crgomez.activitatdinamicfragment;
 
 
 import android.net.Uri;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import java.util.ArrayList;
 
@@ -157,6 +160,7 @@ public class MainActivity extends AppCompatActivity implements Titolacions.Comun
        ft = fm.beginTransaction();
 
 
+
        ft.replace(R.id.fragmentLlistat,lt);
 
        ft.commit();
@@ -199,5 +203,7 @@ public class MainActivity extends AppCompatActivity implements Titolacions.Comun
     public void onFragmentInteraction(Uri uri) {
 
     }
+
+
 }
 

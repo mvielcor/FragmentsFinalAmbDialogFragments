@@ -6,7 +6,7 @@
     tools:context=".Llistat">
 
     <!-- TODO: Update blank fragment layout -->
-    <ScrollView
+  <!--  <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <TextView
@@ -15,6 +15,11 @@
         android:layout_height="wrap_content"
         android:singleLine="false"
          />
-    </ScrollView>
+    </ScrollView>-->
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </FrameLayout>
