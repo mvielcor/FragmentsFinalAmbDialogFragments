@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".Llistat">
 
-    <!-- TODO: Update blank fragment layout -->
+    <!-- ESTO: Estaba antes de poner el Recycler -->
+
   <!--  <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,9 +18,11 @@
          />
     </ScrollView>-->
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
 
 </FrameLayout>
