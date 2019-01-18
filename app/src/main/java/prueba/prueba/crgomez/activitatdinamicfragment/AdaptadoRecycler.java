@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class AdaptadoRecycler extends RecyclerView.Adapter<AdaptadoRecycler.elViewHolder> {
 
     ArrayList<CicleFlorida> llistatCicles;
+
 
     @NonNull
     @Override
@@ -26,10 +28,23 @@ public class AdaptadoRecycler extends RecyclerView.Adapter<AdaptadoRecycler.elVi
         llistatCicles = llista;
     }
     @Override
-    public void onBindViewHolder(@NonNull elViewHolder elViewHolder, int i) {
+    public void onBindViewHolder(@NonNull elViewHolder elViewHolder, final int i) {
 
         elViewHolder.tvTitol.setText(llistatCicles.get(i).getTitol());
         elViewHolder.tvDescripcio.setText(llistatCicles.get(i).getDescripcio());
+
+        //AQUÍ AÑADIMOS EL IC_DELETE CON SU LISTENER, "I" INDICAMOS LA POSICIÓN DEL ARRAY.
+        elViewHolder.icDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                llistatCicles.remove(i);
+                notifyItemRemoved(i);
+
+
+
+            }
+        });
 
     }
 
@@ -40,11 +55,14 @@ public class AdaptadoRecycler extends RecyclerView.Adapter<AdaptadoRecycler.elVi
 
     public static class elViewHolder extends RecyclerView.ViewHolder{
         TextView tvTitol,tvDescripcio;
-
+        ImageView icAnyadir,icDelete;
         public elViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDescripcio = (TextView) itemView.findViewById(R.id.tvDescripcio);
             tvTitol = (TextView) itemView.findViewById(R.id.tv_titol);
+            icAnyadir = (ImageView) itemView.findViewById(R.id.delRowBtn);
+            icDelete = (ImageView) itemView.findViewById(R.id.addRowBtn);
+
         }
     }
 
