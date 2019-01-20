@@ -44,14 +44,14 @@
             android:padding="5dp">
 
             <ImageView
-                android:id="@+id/addRowBtn"
+                android:id="@+id/delRowBtn"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:layout_gravity="end"
                 android:src="@android:drawable/ic_delete" />
 
             <ImageView
-                android:id="@+id/delRowBtn"
+                android:id="@+id/addRowBtn"
                 android:layout_width="40dp"
                 android:layout_height="30dp"
                 android:layout_gravity="end"

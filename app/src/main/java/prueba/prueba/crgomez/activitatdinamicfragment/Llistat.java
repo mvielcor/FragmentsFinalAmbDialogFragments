@@ -1,6 +1,7 @@
 package prueba.prueba.crgomez.activitatdinamicfragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+
+import static android.app.Activity.RESULT_OK;
 
 
 /**
@@ -112,6 +115,15 @@ public class Llistat extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        switch (resultCode) {
+            case RESULT_OK:
+                Log.d("array", "He vuelto al fragment");
+                break;
+        }
+    }
 // NOS CARGAMOS ESTE MÉTODO PARA INCORPORAR EL RECYCLERVIEW
     public void mostrar(){
         Log.d("entro", "entroMostrar");
@@ -122,6 +134,8 @@ public class Llistat extends Fragment {
         }
 
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this

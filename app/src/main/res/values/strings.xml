@@ -3,4 +3,12 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="editarTitulo">Edita el Título</string>
+    <string name="anyadir">AÑADIR</string>
+    <string name="cancel">CANCELAR</string>
+    <string name="tipusCicle">ESPORT, EMPRESA o INFORMÀTICA</string>
+    <string name="tipus">Mitjà o Superior</string>
+    <string name="titol">Titol del cicle</string>
+    <string name="descripcio">Descripcio</string>
+
 </resources>
