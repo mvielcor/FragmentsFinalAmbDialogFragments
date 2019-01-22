@@ -1,5 +1,6 @@
 package prueba.prueba.crgomez.activitatdinamicfragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
@@ -16,18 +17,18 @@ import java.util.ArrayList;
 public class AdaptadoRecycler extends RecyclerView.Adapter<AdaptadoRecycler.elViewHolder> {
 
     public static ArrayList<CicleFlorida> llistatCicles;
+    public static Context context;
 
     public static class elViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView tvTitol,tvDescripcio;
         ImageView icAnyadir,icDelete;
-        Context context;
         public elViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDescripcio = (TextView) itemView.findViewById(R.id.tvDescripcio);
             tvTitol = (TextView) itemView.findViewById(R.id.tv_titol);
             icAnyadir = (ImageView) itemView.findViewById(R.id.addRowBtn);
             icDelete = (ImageView) itemView.findViewById(R.id.delRowBtn);
-            context = itemView.getContext();
+            //context = itemView.getContext();
         }
         //PONEMOS AQUÍ ESTE MÉTODO PARA PODER ACCEDER AL CONTEXTO DE LOS ACTIVITYS DESDE EL ADAPTADOR PORQUE ELVIEWHOLDER ES EL ÚNICO MÉTODO QUE PUEDE ACCEDER AL CONTEXTO
         //Aquí pondríamos todos los clicklistener que queremos porque con el context tenemos acceso, pero hay que llamar el método bajo para que vaya
@@ -44,10 +45,17 @@ public class AdaptadoRecycler extends RecyclerView.Adapter<AdaptadoRecycler.elVi
                 case R.id.addRowBtn:
                     Intent intent = new Intent(context,AgregarActivity.class);
                     intent.putExtra("prueba", tvTitol.getText());
+
+
                     //LE PASAMOS EL ARRAY Y LO AÑADIMOS, VEMOS EL LOG Y SE AÑADE OK.
                     intent.putParcelableArrayListExtra("arrayList", llistatCicles);
+                    //De esta forma haciendo un cast del ACTIVITY con el context podemos hacer el forResult para que en Llistat le pasemos el requestCode que es el número que queramos
+                    //y el RESULT_OK SE LO PASAMOS DESDE EL ACTIVITY DE AGREGAR.
+                    //con el FORRESULT llamamos al activityResult que hay en LLISTAT
+                    ((Activity) context).startActivityForResult(intent,1);
+
                     //Aquí no me funciona porque deberíamos devolver un ACTIVITY FOR RESULT PERO NO PUEDO... ENTONCES LE PASO UN STARTACTIVTY.
-                    context.startActivity(intent);
+                    //context.startActivity(intent);
                     break;
             }
         }
@@ -61,7 +69,8 @@ public class AdaptadoRecycler extends RecyclerView.Adapter<AdaptadoRecycler.elVi
     }
 
 
-    public AdaptadoRecycler(ArrayList<CicleFlorida> llista){
+    public AdaptadoRecycler(ArrayList<CicleFlorida> llista, Context cont){
+        context = cont;
 
         llistatCicles = llista;
     }

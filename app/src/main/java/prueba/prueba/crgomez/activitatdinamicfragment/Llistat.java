@@ -84,7 +84,7 @@ public class Llistat extends Fragment {
 // getAPLICATTIONCONTEXT no sirve porque TENEMOS QUE UTILIZAR V.GETCONTEXT() QUE ES LA PANTALLA QUE ESTAMOS UTILIZANDO EN EL MOMENTO
         rvLM = new LinearLayoutManager(v.getContext(),1,false);
         rv.setLayoutManager(rvLM);
-        adapRe = new AdaptadoRecycler(mParam1);
+        adapRe = new AdaptadoRecycler(mParam1, getContext());
 
         rv.setAdapter(adapRe);
        // muestraCiclos = (TextView) v.findViewById(R.id.voreLlistat);
@@ -121,6 +121,7 @@ public class Llistat extends Fragment {
         switch (resultCode) {
             case RESULT_OK:
                 Log.d("array", "He vuelto al fragment");
+                mParam1 = data.getParcelableArrayListExtra("arrayList");
                 break;
         }
     }
