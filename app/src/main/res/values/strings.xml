@@ -10,5 +10,6 @@
     <string name="tipus">Mitjà o Superior</string>
     <string name="titol">Titol del cicle</string>
     <string name="descripcio">Descripcio</string>
-
+    <string name="dialog_fire_missiles">prueba</string>
+    <string name="fire">ELIMINAR</string>
 </resources>

@@ -26,7 +26,7 @@ import static android.app.Activity.RESULT_OK;
  * Use the {@link Llistat#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Llistat extends Fragment {
+public class Llistat extends Fragment implements DialogNew.comunicaDialegAmbFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -136,6 +136,11 @@ public class Llistat extends Fragment {
 
     }
 
+    @Override
+    public void eliminarCicle(int posicioAEliminar) {
+        mParam1.remove(posicioAEliminar);
+        adapRe.notifyItemRemoved(posicioAEliminar);
+    }
 
 
     /**
