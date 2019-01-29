@@ -24,7 +24,7 @@ public class AgregarActivity extends AppCompatActivity {
         tipus = (TextView) findViewById(R.id.tipus);
         titol_new = (TextView) findViewById(R.id.titol_new);
         descip_new = (TextView)findViewById(R.id.descripcio_new);
-        btn_anyadirNew = (Button) findViewById(R.id.btn_anyadirNew);
+       // btn_anyadirNew = (Button) findViewById(R.id.btn_anyadirNew);
 
         //Aquí con Bundle lo que hacemos es recoger los datos que nos manda el adapter.
         final Bundle recogerDatos = getIntent().getExtras();

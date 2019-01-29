@@ -21,9 +21,14 @@ public class AdaptadoRecycler extends RecyclerView.Adapter<AdaptadoRecycler.elVi
 
     public static ArrayList<CicleFlorida> llistatCicles;
     public static Context context;
+    public NotificaAccions comunicador;
 
+    public interface NotificaAccions{
+        void mostraDialegEsborrarElement(int pos);
+        void mostraDialegAfegirCicle();
 
-    public static class elViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    }
+    public static class elViewHolder extends RecyclerView.ViewHolder  {
         TextView tvTitol,tvDescripcio;
         ImageView icAnyadir,icDelete;
 
@@ -36,37 +41,7 @@ public class AdaptadoRecycler extends RecyclerView.Adapter<AdaptadoRecycler.elVi
             icDelete = (ImageView) itemView.findViewById(R.id.delRowBtn);
             //context = itemView.getContext();
         }
-        //PONEMOS AQUÍ ESTE MÉTODO PARA PODER ACCEDER AL CONTEXTO DE LOS ACTIVITYS DESDE EL ADAPTADOR PORQUE ELVIEWHOLDER ES EL ÚNICO MÉTODO QUE PUEDE ACCEDER AL CONTEXTO
-        //Aquí pondríamos todos los clicklistener que queremos porque con el context tenemos acceso, pero hay que llamar el método bajo para que vaya
-        void setOnclickListeners(){
 
-           icAnyadir.setOnClickListener(this);
-
-        }
-        // el BOTON DE AÑADIR.
-        // con el switch decimos que botón estamos apretando.
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()){
-                case R.id.addRowBtn:
-                    Intent intent = new Intent(context,AgregarActivity.class);
-                    intent.putExtra("prueba", tvTitol.getText());
-
-
-                    //LE PASAMOS EL ARRAY Y LO AÑADIMOS, VEMOS EL LOG Y SE AÑADE OK.
-                    intent.putParcelableArrayListExtra("arrayList", llistatCicles);
-
-                    //De esta forma haciendo un cast del ACTIVITY con el context podemos hacer el forResult para que en Llistat le pasemos el requestCode que es el número que queramos
-                    //y el RESULT_OK SE LO PASAMOS DESDE EL ACTIVITY DE AGREGAR.
-                    //con el FORRESULT llamamos al activityResult que hay en LLISTAT
-
-                    ((Activity) context).startActivityForResult(intent,1);
-
-                    //Aquí no me funciona porque deberíamos devolver un ACTIVITY FOR RESULT PERO NO PUEDO... ENTONCES LE PASO UN STARTACTIVTY.
-                    //context.startActivity(intent);
-                    break;
-            }
-        }
     }
 
     @NonNull
@@ -78,31 +53,31 @@ public class AdaptadoRecycler extends RecyclerView.Adapter<AdaptadoRecycler.elVi
     }
 
 
-    public AdaptadoRecycler(ArrayList<CicleFlorida> llista, Context cont){
+    public AdaptadoRecycler(ArrayList<CicleFlorida> llista, Context cont, NotificaAccions na){
          context = cont;
         llistatCicles = llista;
+        comunicador = na;
     }
     @Override
-    public void onBindViewHolder(@NonNull final elViewHolder elViewHolder, final int i) {
+    public void onBindViewHolder(@NonNull final elViewHolder elViewHolder,  final int i) {
 
         elViewHolder.tvTitol.setText(llistatCicles.get(i).getTitol());
         elViewHolder.tvDescripcio.setText(llistatCicles.get(i).getDescripcio());
         // al hacer this estamos diciendo que está clase es la que va a ser quien implemente el onclick
 
-        //El método este nos permite acceder al context.
-        elViewHolder.setOnclickListeners();
+        ///Afegim un listener a la icona +
+        elViewHolder.icAnyadir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+             comunicador.mostraDialegAfegirCicle(); //Notifiquem al fragment que conté el recyclerview que volem mostrar el dialeg afegir
+            }
+        });
 
-        //AQUÍ AÑADIMOS EL IC_DELETE CON SU LISTENER, "I" INDICAMOS LA POSICIÓN DEL ARRAY.
-        elViewHolder.icDelete.setOnClickListener(new View.OnClickListener() {
+        //Afegim un listener a la icona +
+       elViewHolder.icDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.d("MANEL","Vaig a llençar dialeg");
-               DialogNew dialeg = DialogNew.newInstance("ATENCIÓ, OPERACIó ESBORRAR","Estas segur que vols esborrar el cicle "+llistatCicles.get(i).getTitol()+"?",i);
-                dialeg.show();
-               Log.d("MANEL","ja he llençat dialeg");
-                //llistatCicles.remove(i);
-                //notifyItemRemoved(i);
-
+              comunicador.mostraDialegEsborrarElement(i);  //Notifiquem al fragment que té el recyclerView que mostre el dialeg
             }
         });
 

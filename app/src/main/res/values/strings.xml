@@ -2,14 +2,13 @@
     <string name="app_name">ActivitatDinamicFragment</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="editarTitulo">Edita el Título</string>
-    <string name="anyadir">AÑADIR</string>
+    <string name="editarTitulo">Edita el Títol</string>
+    <string name="anyadir">AFEGIR</string>
     <string name="cancel">CANCELAR</string>
     <string name="tipusCicle">ESPORT, EMPRESA o INFORMÀTICA</string>
     <string name="tipus">Mitjà o Superior</string>
     <string name="titol">Titol del cicle</string>
-    <string name="descripcio">Descripcio</string>
-    <string name="dialog_fire_missiles">prueba</string>
-    <string name="fire">ELIMINAR</string>
+    <string name="descripcio">Descripció</string>
+    <string name="eliminar">ELIMINAR</string>
+    <string name="afegir_cicle">Afegir Cicle</string>
 </resources>

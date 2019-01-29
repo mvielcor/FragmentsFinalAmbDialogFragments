@@ -1,6 +1,5 @@
 package prueba.prueba.crgomez.activitatdinamicfragment;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -8,17 +7,22 @@ import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.util.Log;
 
-public class DialogNew extends DialogFragment {
-    comunicaDialegAmbFragment comunicador;
+public class DialogEliminarElement extends DialogFragment {
+    ComunicaDialegAmbFragment comunicador;
     String titol,msg;
     int posicioAEliminar;
-    public DialogNew (){}
+    public DialogEliminarElement(){}
 
-    public static DialogNew newInstance(String titol_dialeg, String missatge_dialeg, int pos) {
+    /*Aques diàleg rebrà tres paràmetres:
+    el títol que mostrarà el diàleg
+    El missatge que mostrarà el diàleg
+    la posició de l'element a eliminar
+     */
+    public static DialogEliminarElement newInstance(String titol_dialeg, String missatge_dialeg, int pos) {
 
         Bundle args = new Bundle();
-
-        DialogNew fragment = new DialogNew();
+        // REcollim els paràmetres que reb el diàleg
+        DialogEliminarElement fragment = new DialogEliminarElement();
         args.putString("TitolDialeg",titol_dialeg);
         args.putString("MissatgeDialeg",missatge_dialeg);
         args.putInt("Posicio",pos);
@@ -30,25 +34,27 @@ public class DialogNew extends DialogFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if(getArguments()!=null){
+            //Si el diàleg té paràmetres, els assignem als atributs de la classe
             titol = getArguments().getString("TitolDialeg");
             msg = getArguments().get("MissatgeDialeg").toString();
             posicioAEliminar = getArguments().getInt("Posicio");
         }
-        Log.d("MANEL","On Create FragmenDialog- abans crear");
-        onCreateDialog().show();
-
-        Log.d("MANEL","On Create FragmenDialog- despres crear");
+        //enllacem la interficie de comunicació amb el FRagment LListat, que és el fragment que crea aquest diàleg.
+        comunicador = (ComunicaDialegAmbFragment)getTargetFragment();
     }
-    public Dialog onCreateDialog() {
 
+    public Dialog onCreateDialog(Bundle savedInstance) {
+        // Creem el contingut del diàleg
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setMessage(msg)
                 .setTitle(titol)
-                .setPositiveButton(R.string.fire, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.eliminar, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // FIRE ZE MISSILES!
+                    // Notifiquem al fragment que ha llençat este diàleg (mitjançant la interficie de comunicació)
+                        // Que l'usuari ha polsat el botó positiu (Eliminar)
                     comunicador.eliminarCicle(posicioAEliminar);
 
                     }
@@ -56,27 +62,17 @@ public class DialogNew extends DialogFragment {
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // User cancelled the dialog
+                        //No cal fer res!!
                     }
                 });
         // Create the AlertDialog object and return it
         return builder.create();
 
     }
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        // Verify that the host activity implements the callback interface
-        try {
-            // Instantiate the NoticeDialogListener so we can send events to the host
-            comunicador = (comunicaDialegAmbFragment) activity;
-        } catch (ClassCastException e) {
-            // The activity doesn't implement the interface, throw exception
-            throw new ClassCastException(activity.toString()
-                    + " must implement comunicaDialegAmbFragment");
-        }
-    }
-    public interface comunicaDialegAmbFragment {
+
+
+    public interface ComunicaDialegAmbFragment {
 
         void eliminarCicle(int posicioAEliminar);
-        //falta un mètode per afegir cicles
     }
 }

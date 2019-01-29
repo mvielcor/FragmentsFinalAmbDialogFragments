@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -26,7 +28,9 @@ import static android.app.Activity.RESULT_OK;
  * Use the {@link Llistat#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Llistat extends Fragment implements DialogNew.comunicaDialegAmbFragment {
+public class Llistat extends Fragment implements DialogEliminarElement.ComunicaDialegAmbFragment,
+                                                 DialogAfegirCicle.ComunicaDialegAmbFragment
+{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -79,12 +83,34 @@ public class Llistat extends Fragment implements DialogNew.comunicaDialegAmbFrag
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v=inflater.inflate(R.layout.fragment_llistat, container, false);
-        Log.d("entro","entroLlistat " + mParam1.get(0));
         rv = (RecyclerView)v.findViewById (R.id.recycler1);
-// getAPLICATTIONCONTEXT no sirve porque TENEMOS QUE UTILIZAR V.GETCONTEXT() QUE ES LA PANTALLA QUE ESTAMOS UTILIZANDO EN EL MOMENTO
         rvLM = new LinearLayoutManager(v.getContext(),1,false);
         rv.setLayoutManager(rvLM);
-        adapRe = new AdaptadoRecycler(mParam1, getContext());
+        adapRe = new AdaptadoRecycler(mParam1, getContext(), new AdaptadoRecycler.NotificaAccions() {
+            @Override
+            public void mostraDialegEsborrarElement(int pos) {
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                Fragment previ = fm.findFragmentByTag("Dialeg Elimina Cicle");
+                if (previ!=null)
+                    ft.remove(previ);
+                DialogEliminarElement dialegConfimaEliminacio =  DialogEliminarElement.newInstance("ATENCIÓ, OPERACIó ESBORRAR","Estas segur que vols esborrar el cicle "+mParam1.get(pos).getTitol()+"?",pos);
+                dialegConfimaEliminacio.setTargetFragment(Llistat.this,300);
+                dialegConfimaEliminacio.show(ft,"Dialeg Elimina Cicle");
+            }
+
+            @Override
+            public void mostraDialegAfegirCicle() {
+                FragmentManager fm = getFragmentManager();
+                FragmentTransaction ft = fm.beginTransaction();
+                Fragment previ = fm.findFragmentByTag("Dialeg Afegir Cicle");
+                if (previ!=null)
+                    ft.remove(previ);
+                DialogAfegirCicle dialegAfegirCicle =  DialogAfegirCicle.newInstance("AFEGIR UN CICLE NOU ...");
+                dialegAfegirCicle.setTargetFragment(Llistat.this,301);
+                dialegAfegirCicle.show(ft,"Dialeg Afegir Cicle");
+            }
+        });
 
         rv.setAdapter(adapRe);
        // muestraCiclos = (TextView) v.findViewById(R.id.voreLlistat);
@@ -140,6 +166,12 @@ public class Llistat extends Fragment implements DialogNew.comunicaDialegAmbFrag
     public void eliminarCicle(int posicioAEliminar) {
         mParam1.remove(posicioAEliminar);
         adapRe.notifyItemRemoved(posicioAEliminar);
+    }
+
+    @Override
+    public void afegirCicle(CicleFlorida cicleNou) {
+        mParam1.add(cicleNou);
+        adapRe.notifyItemInserted(mParam1.size());
     }
 
 

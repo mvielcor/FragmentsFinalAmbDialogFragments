@@ -44,7 +44,7 @@
         android:layout_gravity="center"
         android:gravity="center_horizontal"
         android:orientation="horizontal">
-
+    <!--
         <Button
             android:id="@+id/btn_anyadirNew"
             android:layout_width="100dp"
@@ -56,5 +56,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:text="@string/cancel" />
+    -->
+
     </LinearLayout>
 </LinearLayout>
